@@ -369,6 +369,7 @@ if __name__ == "__main__":
 	parser.add_argument('-sites-list', type=str, help='List of sites to use instead of built-in list')
 	parser.add_argument('-cookie-file', metavar='PATH', help='Store cookies in PATH')
 	parser.add_argument('-no-cache', action='store_true', help='Disable disk caching of website data')
+	parser.add_argument('-sw-render', action='store_true', help='Use software rendering for libGL')
 	args = parser.parse_args()
 
 	if args.sites_list:
@@ -380,6 +381,8 @@ if __name__ == "__main__":
 
 	url, scripts = None, None
 
+	if args.sw_render:
+		os.environ["LIBGL_ALWAYS_SOFTWARE"] = "1"
 	if args.url:
 		url = args.url
 	elif args.cycle:
